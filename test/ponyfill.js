@@ -4,7 +4,7 @@ import {resolve} from '../index.js'
 
 test('ponyfill', async function () {
   assert.deepEqual(
-    Object.keys(await import('import-meta-resolve')).sort(),
+    Object.keys(await import('@dual-bundle/import-meta-resolve')).sort(),
     ['moduleResolve', 'resolve'],
     'should expose the public api'
   )
