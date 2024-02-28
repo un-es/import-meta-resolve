@@ -1,3 +1,23 @@
+# [**@dual-bundle/import-meta-resolve**](https://github.com/dual-bundle/import-meta-resolve)
+
+A fork of [`import-meta-resolve`](https://github.com/wooorm/import-meta-resolve)
+with commonjs + ESM support at the same time, AKA dual package.
+
+It will rebase and try to release in order to sync with the upstream every day,
+see [.github/workflows/rebase.yml](.github/workflows/rebase.yml) for details.
+
+## Installation
+
+```bash
+# npm
+npm install @dual-bundle/import-meta-resolve
+
+# yarn
+yarn add @dual-bundle/import-meta-resolve
+```
+
+***
+
 # import-meta-resolve
 
 [![Build][build-badge]][build]
