@@ -1,37 +1,50 @@
 {
-  "name": "import-meta-resolve",
+  "name": "@dual-bundle/import-meta-resolve",
   "version": "4.1.0",
-  "description": "Resolve things like Node.js — ponyfill for `import.meta.resolve`",
+  "description": "A fork of `import-meta-resolve` with commonjs + ESM support at the same time, AKA dual package.",
   "license": "MIT",
   "keywords": [
     "resolve",
     "node",
     "esm",
-    "module"
+    "module",
+    "import",
+    "import-meta-resolve"
   ],
-  "repository": "wooorm/import-meta-resolve",
+  "repository": "un-es/import-meta-resolve",
   "bugs": "https://github.com/wooorm/import-meta-resolve/issues",
   "funding": {
     "type": "github",
     "url": "https://github.com/sponsors/wooorm"
   },
   "author": "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
+  "maintainers": [
+    "JounQin <admin@1stg.me> (https://www.1stG.me)"
+  ],
   "contributors": [
     "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
   ],
   "sideEffects": false,
   "type": "module",
-  "main": "index.js",
+  "main": "index.cjs",
+  "module": "index.js",
   "types": "index.d.ts",
+  "exports": {
+    "types": "./index.d.ts",
+    "require": "./index.cjs",
+    "default": "./index.js"
+  },
   "files": [
     "lib/",
     "index.d.ts",
+    "index.cjs",
     "index.js"
   ],
   "devDependencies": {
     "@types/node": "^20.0.0",
     "@types/semver": "^7.0.0",
     "c8": "^9.0.0",
+    "esbuild": "^0.21.1",
     "f-ck": "^2.0.0",
     "prettier": "^3.0.0",
     "remark-cli": "^12.0.0",
@@ -44,7 +57,7 @@
   "scripts": {
     "prepack": "npm run generate && npm run build && npm run format",
     "generate": "node --conditions development script.js",
-    "build": "tsc --build --clean && tsc --build && type-coverage",
+    "build": "tsc --build --clean && tsc --build && type-coverage && esbuild --bundle --outfile=index.cjs --platform=node --format=cjs index.js",
     "format": "remark . -qfo && prettier . -w --log-level warn && xo --fix",
     "test-api": "node --experimental-import-meta-resolve test/baseline.js && node --experimental-import-meta-resolve test/baseline-async.js && node test/index.js",
     "test-coverage": "c8 --check-coverage --branches 75 --functions 75 --lines 75 --statements 75 --reporter lcov npm run test-api",
@@ -79,6 +92,10 @@
       "preset-wooorm",
       [
         "remark-lint-maximum-heading-length",
+        false
+      ],
+      [
+        "remark-lint-no-multiple-toplevel-headings",
         false
       ]
     ]
